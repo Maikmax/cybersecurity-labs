@@ -1,6 +1,9 @@
 # HTB: Joker — Writeup
 
-**Difficulty:** Hard | **OS:** Linux | **IP:** 10.10.10.21
+**Difficulty:** Hard | **OS:** Linux | **IP:** 10.10.10.21  
+**Profile:** [MaikPro @ HackTheBox](https://app.hackthebox.com/profile/MaikPro)
+
+---
 
 ## Summary
 
@@ -90,7 +93,7 @@ import os
 os.popen("base64 -w 0 /etc/iptables/rules.v4").read()
 ```
 
-Key rule: **TCP egress blocked for new connections**. UDP unrestricted.
+Key rule: **TCP egress blocked for new connections**. UDP unrestricted.  
 Standard reverse shells won't work — need UDP.
 
 ### Reverse Shell via UDP
@@ -189,6 +192,8 @@ nmap UDP → TFTP/69
   → tar wildcard injection (cron) → root
 ```
 
+---
+
 ## Tools Used
 
 | Tool | Purpose |
@@ -200,3 +205,15 @@ nmap UDP → TFTP/69
 | socat | UDP reverse shell listener |
 | sudoedit | Symlink exploitation |
 | ssh-keygen | Key generation for alekos |
+
+---
+
+## CVEs & Techniques
+
+| Reference | Description |
+|-----------|-------------|
+| CVE-2015-5602 | sudoedit symlink following via wildcard path |
+| — | TFTP unauthenticated file read |
+| — | Squid proxy misconfiguration (internal service exposure) |
+| — | tar wildcard injection via cron job |
+| — | TCP egress bypass using UDP reverse shell |
